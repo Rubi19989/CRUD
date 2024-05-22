@@ -1,5 +1,10 @@
 .Component {
-    margin-top: 15%;
+    margin-top: 5%;
     margin-left: 5%;
     margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+.button-margin {
+    margin-top: 5px;
 }

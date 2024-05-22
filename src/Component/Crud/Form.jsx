@@ -1,44 +1,83 @@
-import React, { useState } from "react";
-import { Button, Form, Input, Modal } from "antd";
+import React, { useContext, useEffect } from "react";
+import { Form, Input, Modal } from "antd";
+import { ContentContext } from "./Context";
 
+const ModalForm = ({ isEdit, modal2Open, setModal2Open }) => {
+  const { createUsers, editUsers, oneUsers } = useContext(ContentContext);
 
-const ModalForm = () => {
+  const [form] = Form.useForm();
 
-  const [modal2Open, setModal2Open] = useState(false);
-
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success:", values);
+
+    const newProduct = {
+      email: values.email,
+      password: values.password,
+      name: values.name,
+      role: values.role,
+      avatar: values.avatar,
+    };
+
+    if (isEdit === "Editar") {
+      await editUsers(oneUsers.id, newProduct);
+    } else {
+      await createUsers(newProduct);
+    }
+
+    form.resetFields();
+    setModal2Open(false);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  useEffect(() => {
+    form.resetFields();
+    if (isEdit !== "Editar") {
+      form.setFieldsValue({
+        email: "",
+        password: "",
+        name: "",
+        role: "",
+        avatar: "",
+      });
+    } else if (oneUsers) {
+      form.setFieldsValue({
+        email: oneUsers.email,
+        password: oneUsers.password,
+        name: oneUsers.name,
+        role: oneUsers.role,
+        avatar: oneUsers.avatar,
+      });
+    }
+  }, [isEdit, oneUsers]);
+
   return (
     <>
-      <Button type="primary" onClick={() => setModal2Open(true)}>
-        Crear
-      </Button>
       <Modal
-        title="Crear Producto"
+        forceRender
+        title={`${isEdit === "Editar" ? "Editar" : "Crear"} Usuario`}
         centered
         open={modal2Open}
-        // onOk={() => setModal2Open(false)}
-        footer={null}
-        onCancel={() => setModal2Open(false)}
+        okText={`${isEdit === "Editar" ? "Editar" : "Crear"}`}
+        onOk={() => {
+          form.submit();
+        }}
+        onCancel={() => {
+          setModal2Open(false);
+          form.resetFields();
+        }}
       >
         <Form
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
           layout="vertical"
+          form={form}
         >
           <Form.Item
-            label="Producto"
-            name="product"
+            label="Correo Electrónico"
+            name="email"
             rules={[
               {
                 required: true,
-                message: "Porfavor ingrese el nombre del producto!",
+                message: "Por favor ingrese el correo electrónico!",
               },
             ]}
           >
@@ -46,12 +85,25 @@ const ModalForm = () => {
           </Form.Item>
 
           <Form.Item
-            label="Precio"
-            name="price"
+            label="Contraseña"
+            name="password"
             rules={[
               {
                 required: true,
-                message: "Porfavor ingrese el Precio!",
+                message: "Por favor ingrese la contraseña!",
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            label="Nombre"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Por favor ingrese el nombre!",
               },
             ]}
           >
@@ -59,22 +111,29 @@ const ModalForm = () => {
           </Form.Item>
 
           <Form.Item
-            label="Categoria"
-            name="category"
+            label="Rol"
+            name="role"
             rules={[
               {
                 required: true,
-                message: "Porfavor ingrese el nombre de la Categoria!",
+                message: "Por favor ingrese el rol!",
               },
             ]}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
+          <Form.Item
+            label="Avatar"
+            name="avatar"
+            rules={[
+              {
+                required: true,
+                message: "Por favor ingrese el URL del avatar!",
+              },
+            ]}
+          >
+            <Input />
           </Form.Item>
         </Form>
       </Modal>

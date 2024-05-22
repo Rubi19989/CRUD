@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Table, Card, Row, Col, Button, Popconfirm } from "antd";
 import { EditOutlined, DeleteFilled } from "@ant-design/icons";
 import "../Crud/style.css";
 import ModalForm from "./Form";
+import { ContentContext } from "./Context";
 
 const sharedOnCell = (_, index) => {
   if (index === 1) {
@@ -12,113 +13,121 @@ const sharedOnCell = (_, index) => {
   }
   return {};
 };
-const columns = [
-  {
-    title: "Id",
-    dataIndex: "key",
-    rowScope: "row",
-  },
-  {
-    title: "Producto",
-    dataIndex: "product",
-    // render: (text) => <a>{text}</a>,
-    onCell: sharedOnCell,
-  },
-  {
-    title: "Precio",
-    dataIndex: "price",
-    onCell: sharedOnCell,
-  },
-  {
-    title: "Categoria",
-    dataIndex: "category",
-    onCell: sharedOnCell,
-  },
-  {
-    title: "Acciones",
-    dataIndex: "actions",
-    render: (text) => (
-      <div>
-      <Row justify={"center"}>
-        <Col>
-          <Popconfirm
-            title="Deseas eliminar el usuario?"
-            // onConfirm={() => handleDelete(record)}
-          >
-            <Button icon={<DeleteFilled />} type="primary" danger />
-          </Popconfirm>
-        </Col>
 
-        <Col offset={1}>
-          <Button
-            icon={<EditOutlined />}
-            type="primary"
-          />
-        </Col>
-      </Row>
-    </div>
-    ),
-    onCell: sharedOnCell,
-  },
-];
+const List = () => {
+  const [modal2Open, setModal2Open] = useState(false);
+  const [isEdit, setIsEdit] = useState("");
 
-const data = [
-  {
-    key: "1",
-    product: "Producto 1",
-    price: 32,
-    category: "Categoria 1",
-  },
-  {
-    key: "2",
-    product: "Producto 2",
-    price: 42,
-    category: "Categoria 2",
-  },
-  {
-    key: "3",
-    product: "Producto 3",
-    price: 40,
-    category: "Categoria 3",
-  },
-  {
-    key: "4",
-    product: "Producto 4",
-    price: 18,
-    category: "Categoria 4",
-  },
-  {
-    key: "5",
-    product: "Producto 5",
-    price: 18,
-    category: "Categoria 5",
-  },
-];
+  const { users, deleteUsers, getUsers, getOneUsers } = useContext(ContentContext);
 
-const List = () => (
-  <>
-    <Row justify={"center"} className="Component">
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
+
+  const columns = [
+    {
+      title: "Id",
+      dataIndex: "id",
+      rowScope: "row",
+    },
+    {
+      title: "Correo Electrónico",
+      dataIndex: "email",
+      onCell: sharedOnCell,
+    },
+    {
+      title: "Contraseña",
+      dataIndex: "password",
+      onCell: sharedOnCell,
+    },
+    {
+      title: "Nombre",
+      dataIndex: "name",
+      onCell: sharedOnCell,
+    },
+    {
+      title: "Rol",
+      dataIndex: "role",
+      onCell: sharedOnCell,
+    },
+    {
+      title: "Avatar",
+      dataIndex: "avatar",
+      onCell: sharedOnCell,
+      render: (avatar) => (
+        <img
+          src={avatar}
+          alt="Avatar"
+          style={{ marginRight: "8px", verticalAlign: "middle", width: "40px", height: "40px", borderRadius: "50%" }}
+        />
+      ),
+    },
+    {
+      title: "Acciones",
+      dataIndex: "actions",
+      render: (_, record) => (
+        <Row justify="center">
+          <Col>
+            <Popconfirm
+              title="¿Deseas eliminar el usuario?"
+              onConfirm={() => deleteUsers(record.id)}
+            >
+              <Button
+                className="button-margin"
+                icon={<DeleteFilled />}
+                type="primary"
+                danger
+              />
+            </Popconfirm>
+          </Col>
+          <Col offset={1}>
+            <Button
+              className="button-margin"
+              icon={<EditOutlined />}
+              type="primary"
+              onClick={async () => {
+                await getOneUsers(record.id);
+                setIsEdit("Editar");
+                setModal2Open(true);
+              }}
+            />
+          </Col>
+        </Row>
+      ),
+      onCell: sharedOnCell,
+    },
+  ];
+
+  return (
+    <Row justify="center" className="Component">
       <Col>
         <Card
           title="Crud"
           bordered={false}
-          extra={<ModalForm />}
-          style={{
-            width: "auto",
-          }}
+          extra={
+            <Button onClick={() => { setIsEdit(""); setModal2Open(true); }}>
+              Crear
+            </Button>
+          }
+          style={{ width: "auto" }}
         >
+          <ModalForm
+            isEdit={isEdit}
+            modal2Open={modal2Open}
+            setModal2Open={setModal2Open}
+          />
           <Table
+            rowKey="id"
             columns={columns}
-            dataSource={data}
+            dataSource={users}
             bordered
             scroll={{ x: 1100 }}
-            style={{
-              width: "auto",
-            }}
+            style={{ width: "auto" }}
           />
         </Card>
       </Col>
     </Row>
-  </>
-);
+  );
+};
+
 export default List;

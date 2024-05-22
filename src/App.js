@@ -1,10 +1,13 @@
 import './App.css';
+import { ContextProvider } from './Component/Crud/Context';
 import List from './Component/Crud/List';
 
 function App() {
   return (
     <div className="App">
-     <List  />
+      <ContextProvider>
+        <List/>
+      </ContextProvider>
     </div>
   );
 }
