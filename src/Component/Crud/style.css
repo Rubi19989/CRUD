@@ -1,10 +1,24 @@
 .Component {
     margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 1%;
+    margin-right: 1%;
     margin-bottom: 5%;
 }
 
 .button-margin {
+    /* width: 50px; */
+    /* height: 50px; */
     margin-top: 5px;
+}
+
+.size-button {
+    font-size: 32px;
+}
+
+.img-avatar{
+    margin-right: 8px;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }

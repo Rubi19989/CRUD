@@ -58,7 +58,7 @@ const List = () => {
         <img
           src={avatar}
           alt="Avatar"
-          style={{ marginRight: "8px", verticalAlign: "middle", width: "40px", height: "40px", borderRadius: "50%" }}
+          className="img-avatar"
         />
       ),
     },
@@ -74,7 +74,7 @@ const List = () => {
             >
               <Button
                 className="button-margin"
-                icon={<DeleteFilled />}
+                icon={<DeleteFilled style={{ fontSize: "20px"}}/>}
                 type="primary"
                 danger
               />
@@ -83,7 +83,8 @@ const List = () => {
           <Col offset={1}>
             <Button
               className="button-margin"
-              icon={<EditOutlined />}
+              icon={<EditOutlined style={{ fontSize: "20px"}}/>}
+              
               type="primary"
               onClick={async () => {
                 await getOneUsers(record.id);
