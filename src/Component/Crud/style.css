@@ -6,8 +6,6 @@
 }
 
 .button-margin {
-    /* width: 50px; */
-    /* height: 50px; */
     margin-top: 5px;
 }
 
@@ -15,7 +13,7 @@
     font-size: 32px;
 }
 
-.img-avatar{
+.img-avatar {
     margin-right: 8px;
     vertical-align: middle;
     width: 40px;

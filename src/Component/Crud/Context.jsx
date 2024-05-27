@@ -8,7 +8,6 @@ const ContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [oneUsers, setOneUsers] = useState();
 
-
   const handleCheck = (menssagecheck1, messageCheck2) => {
     Swal.fire({
       icon: "success",
@@ -45,16 +44,14 @@ const ContextProvider = ({ children }) => {
 
   const createUsers = async (newProduct) => {
     try {
-
       const response = await api.post("users", newProduct);
       await getUsers();
-      handleCheck( "Usuario Creado","Usuario Creado con exito!");
+      handleCheck("Usuario Creado", "Usuario Creado con exito!");
 
       return response.data;
-
     } catch (error) {
       handleError(
-       "Ocurrio un error el usuario no se pudo crear, intentelo de nuevo!"
+        "Ocurrio un error el usuario no se pudo crear, intentelo de nuevo!"
       );
     }
   };
@@ -63,9 +60,11 @@ const ContextProvider = ({ children }) => {
     try {
       await api.put(`users/${id}`, updatedProduct);
       await getUsers();
-      handleCheck("Usuario Editado", "El usuario fue actualizado con exito")
+      handleCheck("Usuario Editado", "El usuario fue actualizado con exito");
     } catch (error) {
-      handleError("Ocurrio un error al intentar actualizar el usuario, intente de nuevo!")
+      handleError(
+        "Ocurrio un error al intentar actualizar el usuario, intente de nuevo!"
+      );
     }
   };
 
@@ -73,9 +72,9 @@ const ContextProvider = ({ children }) => {
     try {
       await api.delete(`users/${id}`);
       await getUsers();
-      handleCheck("El usuario fue eliminado con exito")
+      handleCheck("El usuario fue eliminado con exito");
     } catch (error) {
-      handleError("No se pudo eliminar el usuario, intente de nuevo!")
+      handleError("No se pudo eliminar el usuario, intente de nuevo!");
     }
   };
 

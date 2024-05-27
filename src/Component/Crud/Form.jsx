@@ -47,7 +47,7 @@ const ModalForm = ({ isEdit, modal2Open, setModal2Open }) => {
         avatar: oneUsers.avatar,
       });
     }
-  }, [ isEdit, oneUsers, form ]);
+  }, [isEdit, oneUsers, form]);
 
   return (
     <>
@@ -77,7 +77,7 @@ const ModalForm = ({ isEdit, modal2Open, setModal2Open }) => {
             rules={[
               {
                 required: true,
-                type: 'email',
+                type: "email",
                 message: "Por favor ingrese el correo electrónico!",
               },
             ]}

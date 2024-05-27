@@ -18,7 +18,8 @@ const List = () => {
   const [modal2Open, setModal2Open] = useState(false);
   const [isEdit, setIsEdit] = useState("");
 
-  const { users, deleteUsers, getUsers, getOneUsers } = useContext(ContentContext);
+  const { users, deleteUsers, getUsers, getOneUsers } =
+    useContext(ContentContext);
 
   useEffect(() => {
     getUsers();
@@ -55,11 +56,7 @@ const List = () => {
       dataIndex: "avatar",
       onCell: sharedOnCell,
       render: (avatar) => (
-        <img
-          src={avatar}
-          alt="Avatar"
-          className="img-avatar"
-        />
+        <img src={avatar} alt="Avatar" className="img-avatar" />
       ),
     },
     {
@@ -74,7 +71,7 @@ const List = () => {
             >
               <Button
                 className="button-margin"
-                icon={<DeleteFilled style={{ fontSize: "20px"}}/>}
+                icon={<DeleteFilled style={{ fontSize: "20px" }} />}
                 type="primary"
                 danger
               />
@@ -83,8 +80,7 @@ const List = () => {
           <Col offset={1}>
             <Button
               className="button-margin"
-              icon={<EditOutlined style={{ fontSize: "20px"}}/>}
-              
+              icon={<EditOutlined style={{ fontSize: "20px" }} />}
               type="primary"
               onClick={async () => {
                 await getOneUsers(record.id);
@@ -106,7 +102,12 @@ const List = () => {
           title="Crud"
           bordered={false}
           extra={
-            <Button onClick={() => { setIsEdit(""); setModal2Open(true); }}>
+            <Button
+              onClick={() => {
+                setIsEdit("");
+                setModal2Open(true);
+              }}
+            >
               Crear
             </Button>
           }
