@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Table, Card, Row, Col, Button, Popconfirm } from "antd";
 import { EditOutlined, DeleteFilled } from "@ant-design/icons";
-import "../Crud/style.css";
+import "./style.css";
 import ModalForm from "./Form";
 import { ContentContext } from "./Context";
 
@@ -96,9 +96,10 @@ const List = () => {
   ];
 
   return (
-    <Row justify="center" className="Component">
-      <Col>
+    <div className="fondo-crud">
+      <Row justify="center">
         <Card
+          className="component"
           title="Crud"
           bordered={false}
           extra={
@@ -127,8 +128,8 @@ const List = () => {
             style={{ width: "auto" }}
           />
         </Card>
-      </Col>
-    </Row>
+      </Row>
+    </div>
   );
 };
 

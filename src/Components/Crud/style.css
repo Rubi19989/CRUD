@@ -1,4 +1,9 @@
-.Component {
+.fondo-crud {
+    height: 100vh;
+    background-color: rgb(204, 160, 255);
+}
+
+.component {
     margin-top: 5%;
     margin-left: 1%;
     margin-right: 1%;

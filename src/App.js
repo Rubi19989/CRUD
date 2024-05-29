@@ -1,14 +1,17 @@
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { ContextProvider } from "./Component/Crud/Context";
-import List from "./Component/Crud/List";
+import { CrudIndex } from "./Components/Crud";
+import { LoginIndex } from "./Components/Login ";
 
 function App() {
   return (
-    <div className="App">
-      <ContextProvider>
-        <List />
-      </ContextProvider>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginIndex />} />
+        <Route path="/crud" element={<CrudIndex />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

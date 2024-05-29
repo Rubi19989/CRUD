@@ -26,8 +26,8 @@ const ContextProvider = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const response = await api.get("users");
-      setUsers([...response.data]);
+      const response = await api.get("users?offset=0&limit=5");
+      setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
