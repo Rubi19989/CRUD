@@ -13,9 +13,12 @@ const FormLogin = () => {
 
   const onFinish = async (values) => {
     setLoading(true);
-    const success = await loginAuth(values);
+
+    const login = await loginAuth(values);
+
     setLoading(false);
-    if (success) {
+
+    if (login) {
       navigate("/crud");
     } else {
       Swal.fire({
