@@ -1,6 +1,7 @@
 .fondo-crud {
     height: 100vh;
     background-color: rgb(204, 160, 255);
+    background-size: cover;
 }
 
 .component {

@@ -4,6 +4,7 @@ import { EditOutlined, DeleteFilled } from "@ant-design/icons";
 import "./style.css";
 import ModalForm from "./Form";
 import { ContentContext } from "./Context";
+import { RemoveToken } from "../Login /Logout";
 
 const sharedOnCell = (_, index) => {
   if (index === 1) {
@@ -97,6 +98,8 @@ const List = () => {
 
   return (
     <div className="fondo-crud">
+      <RemoveToken />
+
       <Row justify="center">
         <Card
           className="component"

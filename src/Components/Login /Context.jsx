@@ -1,12 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { api } from "../../assets/Api/Api";
+
 
 const ContentContext = createContext();
 
 const ContextProvider = ({ children }) => {
+  const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"));
+  const [tokens, setTokens] = useState({ accessToken });
 
-  const accessToken = localStorage.getItem("accessToken")
-  const [tokens, setTokens] = useState({accessToken});
 
   const loginAuth = async (log) => {
     try {
@@ -15,7 +16,7 @@ const ContextProvider = ({ children }) => {
 
       const { access_token } = response.data;
 
-      setTokens({accessToken: access_token});
+      setTokens({ accessToken: access_token });
 
       localStorage.setItem("accessToken", access_token);
 
@@ -25,9 +26,21 @@ const ContextProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAccessToken(null);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setAccessToken(token);
+  }, []);
+
+
   const values = {
     loginAuth,
-    tokens,
+    logout,
+    accessToken: tokens.accessToken,
   };
 
   return (
