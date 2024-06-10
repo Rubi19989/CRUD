@@ -11,7 +11,8 @@ const RemoveToken = () => {
   const salir = () => {
     logout();
     navigate("/");
-  };
+    console.log('Si se borra el token')
+  }; 
 
   return (
     <>

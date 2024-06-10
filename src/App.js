@@ -9,7 +9,7 @@ import { PublicRoutes } from "./Components/PublicRoutes";
 
 // "email": "john@mail.com",
 // "password": "changeme"
-
+// maria@mail.com	12345
 function App() {
   return (
     <ContextProvider>
@@ -19,7 +19,7 @@ function App() {
             <Route path="/" element={<FormLogin />} />
           </Route>
           <Route element={<PrivateRoutes />}>
-            <Route path="/crud" element={<CrudIndex />} />
+            <Route path="/crud" element={<CrudIndex />} /> 
           </Route>
         </Routes>
       </BrowserRouter>

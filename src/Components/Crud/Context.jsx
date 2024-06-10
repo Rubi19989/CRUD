@@ -27,7 +27,7 @@ const ContextProvider = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const response = await api.get("users?offset=0&limit=5");
+      const response = await api.get("users");
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -52,7 +52,7 @@ const ContextProvider = ({ children }) => {
       return response.data;
     } catch (error) {
       handleError(
-        "Ocurrio un error el usuario no se pudo crear, intentelo de nuevo!"
+        "Ocurrio un error al crear el usuario asegurese de que la contraseña no lleve @"
       );
     }
   };

@@ -6,7 +6,6 @@ const ContentContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"));
-  const [tokens, setTokens] = useState({ accessToken });
 
 
   const loginAuth = async (log) => {
@@ -16,7 +15,7 @@ const ContextProvider = ({ children }) => {
 
       const { access_token } = response.data;
 
-      setTokens({ accessToken: access_token });
+      setAccessToken({ accessToken: access_token });
 
       localStorage.setItem("accessToken", access_token);
 
@@ -40,7 +39,7 @@ const ContextProvider = ({ children }) => {
   const values = {
     loginAuth,
     logout,
-    accessToken: tokens.accessToken,
+    accessToken
   };
 
   return (
